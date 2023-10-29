@@ -18,4 +18,4 @@ To get started, run the `app.py` file:
 python app.py
 ```
 
-This will start a Flask web application that you can interact with. 
+This will start a Flask web application.
