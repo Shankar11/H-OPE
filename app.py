@@ -53,16 +53,22 @@ def index():
     elif(request.method == 'POST'):
         
         # get user inputted values for zip code and country code
-        tag = request.form.get("tag")
-        patterns = request.form.get("patterns")
+        api_type = request.form.get("api_type")
+        if api_type == 'upload_file':
+            tag = request.form.get("file_content")
+            patterns = request.form.get("content_type")
+        else:
+            tag=''
+            patterns=''
+
         resp = get_apiresponse(request.form)
         print(request.form)
         # send request to openweathermap API
-        openweather = requests.get("https://api.openweathermap.org/data/2.5/weather?zip={},{}&appid={}&units=imperial".format(tag, patterns, ("API_KEY")))
+       # openweather = requests.get("https://api.openweathermap.org/data/2.5/weather?zip={},{}&appid={}&units=imperial".format(tag, patterns, ("API_KEY")))
         
         # return weather.html to the server
-        dataj = '{"name":"John", "age":30, "car":null}'
-        return render_template('apiresp.html', weather=json.loads(dataj))
+        #dataj = '{"name":"John", "age":30, "car":null}'
+        return render_template('apiresp.html', apidata=resp)
 
 # pass the zipcode and country code as keyword arguments
 
