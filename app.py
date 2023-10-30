@@ -4,6 +4,7 @@ from chatbot import get_response
 from apis import get_apiresponse
 import requests
 import json
+import similarcontext
 
 app = Flask(__name__)
 CORS(app)
@@ -25,12 +26,15 @@ def diagnosis():
 def apiresp():
     return render_template("apiresp.html")
 
+@app.route('/faq')
+def faq():
+    return render_template("faq.html")
+
 # @app.route('/repository')
 # def repository():
 #     return render_template("repository.html")
 
 @app.post("/predict")
-
 def predict():
     text = request.get_json().get("message")
     #TODO : check if text is valid
@@ -38,6 +42,16 @@ def predict():
     message = {"answer" : response}
     print(text)
     return jsonify(message)
+
+@app.post("/answer")
+def answer():
+    text = request.get_json().get("message")
+    message = similarcontext.similarity_finder(text)
+    #TODO : check if text is valid
+    #response = get_response(text)
+    #message = {"answer" : response}
+    print(message)
+    return message.to_json()
 
 
 @app.route('/repository', methods = ["GET", "POST"])
@@ -57,6 +71,8 @@ def index():
         if api_type == 'upload_file':
             tag = request.form.get("file_content")
             patterns = request.form.get("content_type")
+        elif api_type == 'diagnosis_chat':
+            tag = request.form.get("file_content")
         else:
             tag=''
             patterns=''
