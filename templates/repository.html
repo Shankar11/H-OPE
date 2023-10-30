@@ -93,7 +93,7 @@
         }
     </style>
     <meta charset="UTF-8" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="static/style.css" />
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -103,7 +103,7 @@
 
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="static/style.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -127,6 +127,7 @@
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Home</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="#" class="nav-link">Repository</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="/diagnosis" class="nav-link">Diagnosis</a></li>
+                        <li class="nav-item" style="margin-right: -20px"><a href="/faq" class="nav-link">FAQ</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Logout</a></li>
                     </ul>
                 </div>
@@ -142,24 +143,24 @@
 
   <div class="row">
       <div class="col-md-6">
-          <!-- Card 1: Update Disease Information -->
+          <!-- Card 1: Upload Document -->
           <div class="card">
               <div class="card-body">
-                  <h5 class="card-title">Upload Prescription</h5>
+                  <h5 class="card-title">Upload Document</h5>
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal1">
-                      Upload Prescription
+                      Upload Document
                   </button>
               </div>
           </div>
       </div>
 
       <div class="col-md-6">
-          <!-- Card 2: Update Location Information -->
+          <!-- Card 2: Extract Document Information -->
           <div class="card">
               <div class="card-body">
-                  <h5 class="card-title">Update Location Information</h5>
+                  <h5 class="card-title">Extract Document Information</h5>
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal2">
-                      Update Location Information
+                    Extract Document Information
                   </button>
               </div>
           </div>
@@ -168,42 +169,42 @@
   <br>
   <div class="row">
     <div class="col-md-6">
-        <!-- Card 1: Update Disease Information -->
+        <!-- Card 3: Download Document -->
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Download Prescription</h5>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal1">
-                    Download Prescription
+                <h5 class="card-title">Download Document</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal3">
+                    Download Document
                 </button>
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
-        <!-- Card 2: Update Location Information -->
+        <!-- Card 4: Save Bearer token -->
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Update Location Information</h5>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal2">
-                    Update Location Information
+                <h5 class="card-title">Save Bearer token</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal4">
+                    Save Bearer token
                 </button>
             </div>
         </div>
     </div>
 </div>
 
-  <!-- Modal for updating disease information -->
+  <!-- Modal for Upload Document -->
   <div class="modal fade" id="updateModal1" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel1" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="updateModalLabel1">Upload Prescription</h5>
+                  <h5 class="modal-title" id="updateModalLabel1">Upload Document</h5>
                   <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
               <div class="data-container">
-                <form id ="diseaseForm" action="/repository" method="POST">
+                <form id ="uploadForm" action="/repository" method="POST">
                   <h4><center>Upload File</center></h4>
                   <div class="modal-body">
                     <input type="hidden" id="api_type" name="api_type" value="upload_file" />
@@ -223,7 +224,7 @@
                   <h1></h1>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-block" id="updateDisease1">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-block" id="uploadform1">Submit</button>
                 </div>
                   
                   </div>
@@ -234,41 +235,109 @@
       </div>
   </div>
 
-  <!-- Modal for updating location information -->
+  <!-- Modal for Extract Document Information -->
   <div class="modal fade" id="updateModal2" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel2" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="updateModalLabel2">Update Location Information</h5>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <!-- Location information form -->
-                  <form id="locationForm">
-                      <div class="mb-3">
-                          <label for="locationTag" class="form-label">Tag (Location Name)</label>
-                          <input type="text" class="form-control" id="locationTag" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="locationCoordinates" class="form-label">Location (Coordinates)</label>
-                          <input type="text" class="form-control" id="locationCoordinates" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="locationAddress" class="form-label">Address</label>
-                          <textarea class="form-control" id="locationAddress" rows="3" required></textarea>
-                      </div>
-                  </form>
-              </div>
-              <div class="modal-footer">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel2">Extract Document Information</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="data-container">
+              <form id ="extractForm" action="/repository" method="POST">
+                <h4><center>Extract Document Information</center></h4>
+                <div class="modal-body">
+                  <input type="hidden" id="api_type" name="api_type" value="extract_file" />
+                  <div class="mb-3">
+                  <label for="file_content" class="form-label">File Id:</label>
+                  <input type="textarea" class="form-control" id="file_content" name="file_content" placeholder="Enter file id" />
+                  </div>
+                
+                </div>
+                <h1></h1>
+                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="updateLocation">Send</button>
+                  <button type="submit" class="btn btn-primary btn-block" id="extractform1">Submit</button>
               </div>
-          </div>
-      </div>
-  </div>
+                
+                </div>
+              </form>
+            </div>
+            
+        </div>
+    </div>
 </div>
+<!-- Modal for Download Document -->
+<div class="modal fade" id="updateModal3" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel3">Download Document</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="data-container">
+              <form id ="downloadForm" action="/repository" method="POST">
+                <h4><center>Download Document</center></h4>
+                <div class="modal-body">
+                  <input type="hidden" id="api_type" name="api_type" value="download_file" />
+                  <div class="mb-3">
+                  <label for="file_content" class="form-label">File Id:</label>
+                  <input type="textarea" class="form-control" id="file_content" name="file_content" placeholder="Enter file id" />
+                  </div>
+                
+                </div>
+                <h1></h1>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary btn-block" id="downloadform1">Submit</button>
+              </div>
+                
+                </div>
+              </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- Modal for Save Bearer Token -->
+<div class="modal fade" id="updateModal4" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel4" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel4">Bearer Token</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="data-container">
+              <form id ="saveBearerToken" action="/repository" method="POST">
+                <h4><center>Bearer Token</center></h4>
+                <div class="modal-body">
+                  <input type="hidden" id="api_type" name="api_type" value="save_bearer_token" />
+                  <div class="mb-3">
+                  <label for="file_content" class="form-label">Bearer Token:</label>
+                  <input type="textarea" class="form-control" id="file_content" name="file_content" placeholder="Enter Bearer Token" />
+                  </div>                      
+                  
+                </div>
+                <h1></h1>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary btn-block" id="saveBearerToken1">Submit</button>
+              </div>
+                
+                </div>
+              </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 
 <!-- Include Bootstrap JS links -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -288,7 +357,7 @@
 
       
       // Display a success message using a JavaScript alert
-      alert('Your data has been successfully updated in the JSON file.');
+      //alert('Your data has been successfully updated in the JSON file.');
 
       // Clear the form
       //document.getElementById('diseaseForm').reset();
@@ -326,9 +395,9 @@
 
 
 
-<script src="js/jquery.min.js"></script>
+<!--<script src="js/jquery.min.js"></script>
 <script src="js/popper.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js"></script>-->
 </body>
 </html>

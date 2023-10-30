@@ -126,8 +126,8 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Home</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="/repository" class="nav-link">Repository</a></li>
-                        <li class="nav-item" style="margin-right: -20px"><a href="#" class="nav-link">Diagnosis</a></li>
-                        <li class="nav-item" style="margin-right: -20px"><a href="/faq" class="nav-link">FAQ</a></li>
+                        <li class="nav-item" style="margin-right: -20px"><a href="/diagnosis" class="nav-link">Diagnosis</a></li>
+                        <li class="nav-item" style="margin-right: -20px"><a href="#" class="nav-link">FAQ</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Logout</a></li>
                     </ul>
                 </div>
@@ -138,8 +138,8 @@
 </section>
 
 <div class="container">
-  <h1>Diagnosis Panel</h1>  <br><br><br>
-  <h2>This chat will help you in the diagnosis.</h2><br><br><br>
+  <h1>FAQ</h1>  <br><br><br>
+  <h2>This chat will help you with the symptoms.</h2><br><br><br>
 
     <div class="chatbox">
         <div class="chatbox__button">
@@ -151,7 +151,7 @@
                     <img src="{{ url_for('static', filename='images/chatbot.png') }}" alt="image" style="width: 45px; border-radius: 50px;">
                 </div>
                 <div class="chatbox__content--header">
-                    <h4 class="chatbox__heading--header">Diagnosis checker </h4>
+                    <h4 class="chatbox__heading--header">FAQ</h4>
                     <p class="chatbox__description--header">Hello, Enter symptoms and get a list of potential diagnosis</p>
                 </div>
             </div>  
@@ -162,8 +162,8 @@
             </div>
             <div class="chatbox__footer">
                 <input type="text" placeholder="Write a message...">
-                <button class="chatbox__send--footer send__button">Send</button>
-                <button hidden class="chatbox__send--footer query__button">Send</button>
+                <button class="chatbox__send--footer query__button">Send</button>
+                <button hidden class="chatbox__send--footer send__button">Send</button>
             </div>
         </div>
     </div>
