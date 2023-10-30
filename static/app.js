@@ -3,7 +3,8 @@ class Chatbox {
         this.args = {
             openButton: document.querySelector('.chatbox__button'),
             chatBox: document.querySelector('.chatbox__support'),
-            sendButton: document.querySelector('.send__button')
+            sendButton: document.querySelector('.send__button'),
+            queryButton: document.querySelector('.query__button')
         }
 
         this.state = false;
@@ -11,16 +12,23 @@ class Chatbox {
     }
 
     display() {
-        const {openButton, chatBox, sendButton, medicalcentres} = this.args;
+        const {openButton, chatBox, sendButton,queryButton, medicalcentres} = this.args;
 
         openButton.addEventListener('click', () => this.toggleState(chatBox))
 
         sendButton.addEventListener('click', () => this.onSendButton(chatBox))
 
+        queryButton.addEventListener('click', () => this.onQueryButton(chatBox))
+
         const node = chatBox.querySelector('input');
         node.addEventListener("keyup", ({key}) => {
             if (key === "Enter") {
                 this.onSendButton(chatBox)
+            }
+        })
+        node.addEventListener("keyup", ({key}) => {
+            if (key === "Enter") {
+                this.onQueryButton(chatBox)
             }
         })
     }
@@ -37,6 +45,38 @@ class Chatbox {
     }
 
     onSendButton(chatbox) {
+        var textField = chatbox.querySelector('input');
+        let text1 = textField.value
+        if (text1 === "") {
+            return;
+        }
+
+        let msg1 = { name: "User", message: text1 }
+        this.messages.push(msg1);
+
+        fetch('http://127.0.0.1:5000/answer', {
+            method: 'POST',
+            body: JSON.stringify({ message: text1}),
+            mode: 'cors',
+            headers: {
+               'Content-Type': 'application/json'
+            },
+          })
+          .then(r => r.json())
+          .then(r => {
+            //let msg2 = { name: "Sam", message1: r.answer[0][0], message11: r.answer[0][1], prob1: r.answer[0][2], message2: r.answer[1][0], message21: r.answer[1][1], prob2: r.answer[1][2], message3: r.answer[2][0], message31: r.answer[2][1], prob3: r.answer[2][2]};
+            let msg2 = {name: "Doctor", message1: r.Diagnosis[0],message2: r.Diagnosis[1],message3: r.Diagnosis[2]}
+            this.messages.push(msg2);
+            this.updateChatText(chatbox)
+            textField.value = ''
+
+        }).catch((error) => {
+            console.error('Error:', error);
+            this.updateChatText(chatbox)
+            textField.value = ''
+        });
+    }
+    onQueryButton(chatbox) {
         var textField = chatbox.querySelector('input');
         let text1 = textField.value
         if (text1 === "") {
@@ -132,6 +172,13 @@ class Chatbox {
                             + '<div class="myDIV">' + item.message1 + '</div>'
                             + '<div class="con" style="margin-top:20px; margin-bottom:10px"><h3>This may be the possible disease that you may have.</h3></div>'   
                 }
+            }
+            else if (item.name === "Doctor")
+            {
+                html +=  '<div class="myDIV">' + item.message1 + '</div>' 
+                html +=  '<div class="myDIV">' + item.message2 + '</div>'
+                html +=  '<div class="myDIV">' + item.message3 + '</div>'
+          
             }
             else
             {
