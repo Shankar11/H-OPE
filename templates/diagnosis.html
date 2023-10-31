@@ -138,16 +138,16 @@
     <!-- END nav -->
 </section>
 <div class="container">
-  <h1>Diagnosis Panel</h1>  <br><br><br>
-  <h2>This chat will help you in the diagnosis.</h2><br><br><br>
+  <h1 style="padding-right: 825px;">Information Highway for Doctors</h1>  <br><br><br>
+  <h2></h2><br><br><br>
 
   <div class="row" style="width: 300px;">
         <!-- Card 1: Upload Document -->
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Upload Document</h5>
+                <h5 class="card-title">Upload Medical Document</h5>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal1">
-                    Upload Document
+                    Upload Medical Document
                 </button>
             </div>
         </div>
@@ -205,7 +205,7 @@
                     </button>
                 </div>
                 <div class="data-container">
-                  <form id ="uploadForm" action="/repository" method="POST">
+                  <form id ="uploadForm" action="/diagnosis" method="POST">
                     <h4><center>Upload File</center></h4>
                     <div class="modal-body">
                       <input type="hidden" id="api_type" name="api_type" value="upload_file" />
@@ -247,7 +247,7 @@
                   </button>
               </div>
               <div class="data-container">
-                <form id ="extractForm" action="/repository" method="POST">
+                <form id ="extractForm" action="/diagnosis" method="POST">
                   <h4><center>Extract Document Information</center></h4>
                   <div class="modal-body">
                     <input type="hidden" id="api_type" name="api_type" value="extract_file" />
