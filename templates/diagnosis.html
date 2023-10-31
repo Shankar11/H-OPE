@@ -112,6 +112,7 @@
 
 </head>
 <body>
+    
   <section class="ftco-section">
     <div class="container">
         <!-- Add the fixed-top class to make the navigation bar fixed at the top -->
@@ -136,16 +137,41 @@
     </div>
     <!-- END nav -->
 </section>
-
 <div class="container">
   <h1>Diagnosis Panel</h1>  <br><br><br>
   <h2>This chat will help you in the diagnosis.</h2><br><br><br>
+
+  <div class="row" style="width: 300px;">
+        <!-- Card 1: Upload Document -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Upload Document</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal1">
+                    Upload Document
+                </button>
+            </div>
+        </div>
+    </div>
+
+<div class="row" style="width: 300px;">
+    
+        <!-- Card 2: Extract Document Information -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Extract Document Information</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal2">
+                  Extract Document Information
+                </button>
+            </div>
+        </div>
+    
+</div>
 
     <div class="chatbox">
         <div class="chatbox__button">
             <button><img src="{{ url_for('static', filename='images/message.jpg') }}" style="width: 60px; height:50px;"/></button>
         </div>
-        <div class="chatbox__support">
+        <div class="chatbox__support  chatbox--active">
             <div class="chatbox__header">
                 <div class="chatbox__image--header">
                     <img src="{{ url_for('static', filename='images/chatbot.png') }}" alt="image" style="width: 45px; border-radius: 50px;">
@@ -169,7 +195,81 @@
     </div>
     
   
-
+    <div class="modal fade" id="updateModal1" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel1">Upload Document</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="data-container">
+                  <form id ="uploadForm" action="/repository" method="POST">
+                    <h4><center>Upload File</center></h4>
+                    <div class="modal-body">
+                      <input type="hidden" id="api_type" name="api_type" value="upload_file" />
+                      <div class="mb-3">
+                      <label for="file_content" class="form-label">File Content:</label>
+                      <input type="textarea" class="form-control" id="file_content" name="file_content" placeholder="Enter file content" />
+                      </div>
+                    
+                    
+                      <div class="mb-3">
+                      <label for="content_type" class="form-label">Content Type:</label>
+                      <input
+                        type="text" class="form-control" id="content_type" name="content_type" placeholder="Enter content type"
+                      />
+                  </div>
+                    </div>
+                    <h1></h1>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary btn-block" id="uploadform1">Submit</button>
+                  </div>
+                    
+                    </div>
+                  </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  
+    <!-- Modal for Extract Document Information -->
+    <div class="modal fade" id="updateModal2" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel2" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="updateModalLabel2">Extract Document Information</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="data-container">
+                <form id ="extractForm" action="/repository" method="POST">
+                  <h4><center>Extract Document Information</center></h4>
+                  <div class="modal-body">
+                    <input type="hidden" id="api_type" name="api_type" value="extract_file" />
+                    <div class="mb-3">
+                    <label for="file_content" class="form-label">File Id:</label>
+                    <input type="textarea" class="form-control" id="file_content" name="file_content" placeholder="Enter file id" />
+                    </div>
+                  
+                  </div>
+                  <h1></h1>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-block" id="extractform1">Submit</button>
+                </div>
+                  
+                  </div>
+                </form>
+              </div>
+              
+          </div>
+      </div>
+  </div>
   
 </div>
 
