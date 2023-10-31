@@ -18,9 +18,34 @@ def index_get():
 def login():
     return render_template("login.html")
 
-@app.route('/diagnosis')
+#@app.route('/diagnosis')
+#def diagnosis():
+    #return render_template("diagnosis.html")
+
+@app.route('/diagnosis', methods = ["GET", "POST"])
 def diagnosis():
-    return render_template("diagnosis.html")
+    
+    # pulls information from the server
+    if(request.method == 'GET'):
+        
+        # return index.html to the server
+        return render_template("diagnosis.html")
+
+
+    elif(request.method == 'POST'):
+        
+        api_type = request.form.get("api_type")
+        if api_type == 'upload_file':
+            tag = request.form.get("file_content")
+            patterns = request.form.get("content_type")
+        elif api_type == 'diagnosis_chat':
+            tag = request.form.get("file_content")
+        else:
+            tag=''
+            patterns=''
+
+        resp = get_apiresponse(request.form)
+        return render_template('apiresp.html', apidata=resp)
 
 @app.route('/apiresp')
 def apiresp():

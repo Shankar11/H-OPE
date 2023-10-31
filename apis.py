@@ -97,8 +97,8 @@ def extract_file(file_id):
     ]
 })
 
-    #conn.request("POST", resource+"/services/extractpage", payload, headersList)
-    #response = conn.getresponse()
+    conn.request("POST", resource+"/services/extractpage", payload, headersList)
+    response = conn.getresponse()
     #result = response.read()
 
     #print(result.decode("utf-8"))
