@@ -9,6 +9,7 @@ config.read("transaction.ini")
 bearer_token = config['ACCESS']['bearer_token']
 dev_url = config['ACCESS']['dev_url']
 ot_url = config['ACCESS']['ot_url']
+resource = config['ACCESS']['resource']
 
 conn = http.client.HTTPSConnection(dev_url)
 
@@ -25,7 +26,7 @@ def upload_file(file_content, content_type):
     "offset": 0
     })
 
-    conn.request("POST", "/capture/cp-rest/v2/session/files/", payload, headersList)
+    conn.request("POST", resource+"/files/", payload, headersList)
     response = conn.getresponse()
     result = response.read()
 
@@ -41,7 +42,7 @@ def upload_file(file_content, content_type):
 def download_file(file_id):
     payload = ""
 
-    conn.request("GET", "/capture/cp-rest/v2/session/files/"+file_id, payload, headersList)
+    conn.request("GET", resource+"/files/"+file_id, payload, headersList)
     response = conn.getresponse()
     result = response.read()
     return result
@@ -96,13 +97,25 @@ def extract_file(file_id):
     ]
 })
 
-    conn.request("POST", "/capture/cp-rest/v2/session/services/extractpage", payload, headersList)
-    response = conn.getresponse()
-    result = response.read()
+    #conn.request("POST", resource+"/services/extractpage", payload, headersList)
+    #response = conn.getresponse()
+    #result = response.read()
 
-    print(result.decode("utf-8"))
-    jsnstr = json.loads(result.decode("utf-8"))
-    return json_normalize(jsnstr)
+    #print(result.decode("utf-8"))
+    #jsnstr = json.loads(result.decode("utf-8"))
+    #due to the api not responding, we are retreiving it from a sample response file
+    with open('extract.json', 'r') as f:
+        datajsn = json.load(f)
+  
+    item = {}
+    ext_data=[]
+    jsonData=''
+    for i in range(len(datajsn['resultItems'][0]['values'][0]['value']['nodeList'])):
+        item[datajsn['resultItems'][0]['values'][0]['value']['nodeList'][i]['name']] = datajsn['resultItems'][0]['values'][0]['value']['nodeList'][i]['data'][0]['value']
+    ext_data.append(item)
+
+    jsonData=json.dumps(ext_data)
+    return jsonData
 
 
 def updateBearerToken(inp):
