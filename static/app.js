@@ -64,7 +64,7 @@ class Chatbox {
           })
           .then(r => r.json())
           .then(r => {
-            //let msg2 = { name: "Sam", message1: r.answer[0][0], message11: r.answer[0][1], prob1: r.answer[0][2], message2: r.answer[1][0], message21: r.answer[1][1], prob2: r.answer[1][2], message3: r.answer[2][0], message31: r.answer[2][1], prob3: r.answer[2][2]};
+            //let msg2 = { name: "faq", message1: r.answer[0][0], message11: r.answer[0][1], prob1: r.answer[0][2], message2: r.answer[1][0], message21: r.answer[1][1], prob2: r.answer[1][2], message3: r.answer[2][0], message31: r.answer[2][1], prob3: r.answer[2][2]};
             let msg2 = {name: "Doctor", message1: r.Diagnosis[0],message2: r.Diagnosis[1],message3: r.Diagnosis[2]}
             this.messages.push(msg2);
             this.updateChatText(chatbox)
@@ -96,8 +96,8 @@ class Chatbox {
           })
           .then(r => r.json())
           .then(r => {
-            //let msg2 = { name: "Sam", message1: r.answer[0][0], message11: r.answer[0][1], prob1: r.answer[0][2], message2: r.answer[1][0], message21: r.answer[1][1], prob2: r.answer[1][2], message3: r.answer[2][0], message31: r.answer[2][1], prob3: r.answer[2][2]};
-            let msg2 = {name: "Sam", message1: r.answer[0], message2: r.answer[1], message3: r.answer[2], message4: r.answer[3]}
+            //let msg2 = { name: "faq", message1: r.answer[0][0], message11: r.answer[0][1], prob1: r.answer[0][2], message2: r.answer[1][0], message21: r.answer[1][1], prob2: r.answer[1][2], message3: r.answer[2][0], message31: r.answer[2][1], prob3: r.answer[2][2]};
+            let msg2 = {name: "faq", message1: r.answer[0], message2: r.answer[1], message3: r.answer[2], message4: r.answer[3]}
             this.messages.push(msg2);
             this.updateChatText(chatbox)
             textField.value = ''
@@ -114,7 +114,7 @@ class Chatbox {
         const specificTags = ["greeting", "goodbye","work","who","Thanks","joke", "name", "age", "gender", "not_understand"]
         this.messages.slice().reverse().forEach(function(item, index) {
             
-            if (item.name === "Sam")
+            if (item.name === "faq")
             {
                 /*html +=  '<div class="myDIV">' + item.message3 + item.prob3 + '</div>' 
                     + '<div class="hide">' + item.message31 +'</div>'
@@ -185,7 +185,7 @@ class Chatbox {
                 html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
             }
           });
-          html += '<div class="messages__item messages__item--visitor">Hi, this is a medical chat support.</div><div class="messages__item messages__item--visitor">May I know your name.</div>'
+          //html += '<div class="messages__item messages__item--visitor">Hi, this is a medical chat support.</div><div class="messages__item messages__item--visitor">May I know your name.</div>'
 
         const chatmessage = chatbox.querySelector('.chatbox__messages');
         chatmessage.innerHTML = html;
