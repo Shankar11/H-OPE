@@ -3,6 +3,11 @@ import http.client
 import configparser
 import similarcontext
 from pandas import json_normalize
+import os.path
+import base64
+from database import insertRecords,fetchRecords
+from xrayclassifier import classifyxray, segmentxray
+import requests
 
 config = configparser.ConfigParser();
 config.read("transaction.ini")
@@ -20,6 +25,7 @@ headersList = {
 }
 
 def upload_file(file_content, content_type):
+    print(content_type)
     payload = json.dumps({
     "data": file_content,
     "contentType": content_type,
@@ -29,7 +35,7 @@ def upload_file(file_content, content_type):
     conn.request("POST", resource+"/files/", payload, headersList)
     response = conn.getresponse()
     result = response.read()
-
+    print(result)
     print(result.decode("utf-8"))
     jsnstr = json.loads(result.decode("utf-8"))
     parser = configparser.ConfigParser()
@@ -37,7 +43,7 @@ def upload_file(file_content, content_type):
     parser.set('FILE_STORAGE', 'file_id',jsnstr['id'])
     with open('transaction.ini', 'w') as configfile:
         parser.write(configfile)
-    return json_normalize(jsnstr)[['id','contentType','returnStatus.status','returnStatus.code']].to_json()
+    return jsnstr['id']#,json_normalize(jsnstr)[['id','contentType','returnStatus.status','returnStatus.code']].to_json()
 
 def download_file(file_id):
     payload = ""
@@ -48,7 +54,8 @@ def download_file(file_id):
     return result
 
 def extract_file(file_id):
-    conn = http.client.HTTPSConnection(ot_url)
+    
+    conn = http.client.HTTPSConnection(dev_url)
     payload = json.dumps({
     "serviceProps":
     [
@@ -73,7 +80,7 @@ def extract_file(file_id):
             [
             	{
 					"name":"DocumentTypeName",
-					"value":"IE Blood Test Report"
+					"value":"IE Invoice"
 				},
 				{
 					"name":"TemplateId",
@@ -99,23 +106,24 @@ def extract_file(file_id):
 
     conn.request("POST", resource+"/services/extractpage", payload, headersList)
     response = conn.getresponse()
-    #result = response.read()
+    result = response.read()
 
     #print(result.decode("utf-8"))
-    #jsnstr = json.loads(result.decode("utf-8"))
+    jsnstr = json.loads(result.decode("utf-8"))
     #due to the api not responding, we are retreiving it from a sample response file
-    with open('extract.json', 'r') as f:
-        datajsn = json.load(f)
+    
+    #with open('extract.json', 'r') as f:
+    #    datajsn = json.load(f)
   
-    item = {}
-    ext_data=[]
-    jsonData=''
-    for i in range(len(datajsn['resultItems'][0]['values'][0]['value']['nodeList'])):
-        item[datajsn['resultItems'][0]['values'][0]['value']['nodeList'][i]['name']] = datajsn['resultItems'][0]['values'][0]['value']['nodeList'][i]['data'][0]['value']
-    ext_data.append(item)
+    #item = {}
+    #ext_data=[]
+    #jsonData=''
+    #for i in range(len(datajsn['resultItems'][0]['values'][0]['value']['nodeList'])):
+    #    item[datajsn['resultItems'][0]['values'][0]['value']['nodeList'][i]['name']] = datajsn['resultItems'][0]['values'][0]['value']['nodeList'][i]['data'][0]['value']
+    #ext_data.append(item)
 
-    jsonData=json.dumps(ext_data)
-    return jsonData
+    #jsonData=json.dumps(ext_data)
+    return jsnstr
 
 
 def updateBearerToken(inp):
@@ -127,8 +135,10 @@ def updateBearerToken(inp):
     return "success"
 
 def get_apiresponse(msg):
+    print('inside api resp ', msg.get("api_type") )
     if msg.get("api_type") == 'upload_file':
-        return upload_file(msg.get("file_content"), msg.get("content_type"))
+        upload_file(msg.get("file_content"), msg.get("content_type"))
+        return fetchRecords()
     elif msg.get("api_type") == 'diagnosis_chat':
         return   similarcontext.similarity_finder(msg.get("file_content"))
     elif msg.get("api_type") == 'save_bearer_token':
@@ -139,3 +149,38 @@ def get_apiresponse(msg):
         return   extract_file(msg.get("file_content"))
     else:
         print('NA')
+
+def upload_files(filepath,filename):
+    file_ext= os.path.splitext(filename)[1][1:]
+    content_type="image/"+file_ext
+    print('apis filepath ', filepath)
+ 
+    with open(filepath, "rb") as imagefile:
+        convert = base64.b64encode(imagefile.read())
+    file_content = convert.decode('utf-8')
+    return upload_file(file_content, content_type)
+
+def classifyingxray(img_path):
+    xlabel = classifyxray(img_path)
+    xlabel = list(sorted(xlabel['preds'].items(), key=lambda x:x[1],reverse=True))[:4]
+    return xlabel
+
+def segmentingxray(img_path):
+    return segmentxray(img_path)
+
+def riskguard(file_path):
+    headers = {
+    "Authorization": "Bearer "+bearer_token, 
+    }
+
+    print(file_path)
+    file_ext= os.path.splitext(file_path)[1][1:]
+    files=[
+  ('File',('sample patient.pdf',open(file_path,'rb'),'application/'+file_ext))
+]
+    response = requests.request("POST", "https://na-1-dev.api.opentext.com/mtm-riskguard/api/v1/process", headers=headers, data={}, files=files)
+    #conn.request("POST", resource+"//mtm-riskguard/api/v1/process", {}, headersList ,files)
+    #response = conn.getresponse()
+    result = response.text
+    print(result)
+    return result
