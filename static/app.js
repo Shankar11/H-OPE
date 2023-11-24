@@ -17,8 +17,8 @@ class Chatbox {
         openButton.addEventListener('click', () => this.toggleState(chatBox))
 
         sendButton.addEventListener('click', () => this.onSendButton(chatBox))
-
-        queryButton.addEventListener('click', () => this.onQueryButton(chatBox))
+        // commenting faq chat bot section
+        //queryButton.addEventListener('click', () => this.onQueryButton(chatBox))
 
         const node = chatBox.querySelector('input');
         node.addEventListener("keyup", ({key}) => {
@@ -26,11 +26,11 @@ class Chatbox {
                 this.onSendButton(chatBox)
             }
         })
-        node.addEventListener("keyup", ({key}) => {
+        /*node.addEventListener("keyup", ({key}) => {
             if (key === "Enter") {
                 this.onQueryButton(chatBox)
             }
-        })
+        })*/
     }
 
     toggleState(chatbox) {
@@ -45,6 +45,11 @@ class Chatbox {
     }
 
     onSendButton(chatbox) {
+
+        if(chatbox.querySelector('input').value.toLowerCase().includes('what')){
+            this.onQueryButton(chatbox);
+        }
+        else{
         var textField = chatbox.querySelector('input');
         let text1 = textField.value
         if (text1 === "") {
@@ -75,6 +80,7 @@ class Chatbox {
             this.updateChatText(chatbox)
             textField.value = ''
         });
+    }
     }
     onQueryButton(chatbox) {
         var textField = chatbox.querySelector('input');
@@ -113,7 +119,7 @@ class Chatbox {
         var html = '';
         const specificTags = ["greeting", "goodbye","work","who","Thanks","joke", "name", "age", "gender", "not_understand"]
         this.messages.slice().reverse().forEach(function(item, index) {
-            
+        console.log(item.name)    
             if (item.name === "faq")
             {
                 /*html +=  '<div class="myDIV">' + item.message3 + item.prob3 + '</div>' 
@@ -139,8 +145,7 @@ class Chatbox {
                 }
                 else{
 
-                    html += '<div class="messages__item messages__item--visitor">Do you want to know about the nearby medical center locations</div>'
-                            + '<div class="accordion" id="accordionExample">'
+                    html +=  '<div class="accordion" id="accordionExample">'
                                 + '<div class="accordion-item" style="width: 40%; margin-top: 10px" >'
                                 + '<h2 class="accordion-header" id="headingOne">'
                                 + '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">'
@@ -168,9 +173,9 @@ class Chatbox {
                                     + '</div>'
                                     + '</div>'
                                     + '</div>'
-                            + '<div class="messages__item messages__item--visitor">Here  is some more info on the disease</div>'
+                           
                             + '<div class="myDIV">' + item.message1 + '</div>'
-                            + '<div class="con" style="margin-top:20px; margin-bottom:10px"><h3>This may be the possible disease that you may have.</h3></div>'   
+                              
                 }
             }
             else if (item.name === "Doctor")
