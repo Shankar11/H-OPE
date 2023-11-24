@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../static/styles.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>API response</title>
+</head>
+
+<body>
+   
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+    <div><!-- class="modal-body"-->
+        <form id="locationForm">
+        <div> <!-- class="data-container"-->
+             <div class="mb-3">
+                <td><button type="button" onclick="openFileInNewTab('{{apidata[1]}}')" class="btn btn-primary btn-block">View Xray segments</button></td>
+             <table class="table table-striped">
+                <tr>
+                    <th>Label</th>                 
+                    <th>Prediction</th>
+                </tr>
+                {% for item in apidata[0] %}
+                    <tr>
+                    <td>{{item[0]}}<a href="#" class="row-link"></a></td>
+                    <td>{{item[1]}}<a href="#" class="row-link"></a></td>   
+                    </tr>
+                {% endfor %}
+                </table> 
+                
+            <button type="submit" class="btn btn-primary btn-block" onclick="history.back()">Back</button>
+        </div>     
+        
+        </div>
+    </form>
+    </div>
+</div></div>
+<script>
+function openFileInNewTab(fname) {
+    // Replace 'path/to/your/file.txt' with the actual file path
+    var filePath = 'static/uploads/'+fname;
+    // Open the file in a new tab
+    window.open(filePath, '_blank');
+}
+</script>
+</body>
+</html>

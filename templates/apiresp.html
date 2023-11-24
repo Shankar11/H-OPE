@@ -6,24 +6,130 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>API response</title>
 </head>
+<style>table, th, td
+    {
+      border: 1px solid black;
+      border-collapse: collapse;
 
+      body {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+table {
+  border: 2px solid blueviolet;
+  border-collapse: collapse;
+}
+body {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color: #37559d;
+}
+
+a {
+  color: #5165ff;
+}
+
+td {
+  border: 2px solid #ccd2ff;
+  position: relative;
+  padding: 18px;
+}
+
+tr:hover,
+tr:focus-within {
+  background: #f2f3ff;
+  outline: none;
+}
+
+td > .row-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-decoration: none;
+  color: inherit;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+td > a:not(.row-link) {
+  position: relative;
+  z-index: 1;
+}
+    }</style>
 <body>
    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog" role="document" style="position: absolute; padding-left: 50px;">
+        <div class="modal-content" style="width: max-content;">
     <div><!-- class="modal-body"-->
-        <form id="locationForm">
+        <form id="imageForm" action="/btnClick" method="POST">
         <div> <!-- class="data-container"-->
              <div class="mb-3">
-             {{apidata}}
-        
-            <button type="submit" class="btn btn-primary btn-block" onclick="history.back()">Back</button>
+              <input type="hidden" id="fname" name="fname" value=""/>
+              <input type="hidden" id="fid" name="fid"  value=""/>
+              <input type="hidden" id="fpath" name="fpath"  value=""/>
+              <input type="hidden" id="btnaction" name="btnaction"  value=""/>
+             <table class="table table-striped">
+                <tr>
+                    <th>Document Name</th>
+                    <th hidden>Document Id</th>
+                    <th hidden>Document Path</th>
+                    <th>Extract Document</th>
+                    <th>Download Document</th>
+                    <th>View Document</th>
+                    <th>Analyse Xray Document</th>
+                    <th>Compliance</th>
+                </tr>
+                {% for item in apidata %}
+                    <tr>
+                        <td>{{item[0]}}<a href="#" class="row-link"></a></td>
+                        <td hidden>{{item[1]}}<a href="#" class="row-link" tabindex="-1"></a></td>
+                        <td hidden>{{item[2]}}<a href="#" class="row-link" tabindex="-1"></a></td>
+                        <td><button type="submit" onclick="getRowdata('{{item[1]}}','{{item[2]}}','{{item[0]}}','extract')" class="btn btn-primary btn-block">extract</button></td>
+                        <td><button type="submit" onclick="getRowdata('{{item[1]}}','{{item[2]}}','{{item[0]}}','download')" class="btn btn-primary btn-block">download</button></td>
+                        
+                        <td><button type="button" onclick="openFileInNewTab('{{item[0]}}')" class="btn btn-primary btn-block">view</button></td>
+                        <td><button type="submit" onclick="getRowdata('{{item[1]}}','{{item[2]}}','{{item[0]}}','analyse')" class="btn btn-primary btn-block">analyse xray</button></td>
+                        <td><button type="submit" onclick="getRowdata('{{item[1]}}','{{item[2]}}','{{item[0]}}','compliance')" class="btn btn-primary btn-block">compliance</button></td>
+                       <!-- <td style="border: 1px solid black;"><img src="C:\\ShS\\Python\\WS\\HOPE\\H-OPE-main\\Uploads\\xray.jpg"  style="height: 200px;"></td>-->
+                    </tr>
+                {% endfor %}
+                </table>   
+                
+            <button type="button" class="btn btn-primary btn-block" onclick="location.href='http://127.0.0.1:5000/diagnosis#'" class="nav-link">Back</button> <!--onclick="/history.back()" -->
         </div>     
         
         </div>
     </form>
+    
     </div>
 </div></div>
+<!--<div>
+  <img src="{{ url_for('static', filename='uploads/xray.jpg') }}" class="img-responsive center-block" alt="">
+ </div>-->
 
+<script>
+  function getRowdata(fid,fpath,fname,btnAction){
+    console.log(fid,fpath,fname,btnAction)
+    document.getElementById('fid').value =fid;
+    document.getElementById('fpath').value = fpath;
+    document.getElementById('fname').value = fname;
+    document.getElementById('btnaction').value = btnAction;
+  }
+  function openFileInNewTab(fname) {
+        // Replace 'path/to/your/file.txt' with the actual file path
+        var filePath = 'static/uploads/'+fname;
+        // Open the file in a new tab
+        window.open(filePath, '_blank');
+    }
+    
+</script>
 </body>
+
 </html>

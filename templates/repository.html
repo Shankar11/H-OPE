@@ -125,9 +125,9 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Home</a></li>
-                        <li class="nav-item" style="margin-right: -20px"><a href="#" class="nav-link">Repository</a></li>
+                        <li class="nav-item" style="margin-right: -20px"><a href="#" class="nav-link">Admin Center</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="/diagnosis" class="nav-link">Diagnosis</a></li>
-                        <li class="nav-item" style="margin-right: -20px"><a href="/faq" class="nav-link">FAQ</a></li>
+                     <!--   <li class="nav-item" style="margin-right: -20px"><a href="/faq" class="nav-link">FAQ</a></li>-->
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Logout</a></li>
                     </ul>
                 </div>
@@ -181,13 +181,41 @@
     </div>
 
     <div class="col-md-6">
-        <!-- Card 4: Save Bearer token -->
+        <!-- Card 3: Download Document -->
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Save token</h5>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal4">
-                    Save token
+                <h5 class="card-title">Medical Document PII Check</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal6">
+                    Medical Document PII Check
                 </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Card 3: Download Document -->
+            <div class="card">
+                <div class="card-body">
+                    <form action="/viewdocs" method="POST" enctype="multipart/form-data"></form>
+                    <h5 class="card-title">View Medical Document</h5>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal5">
+                        View Medical Document
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Card 4: Save Bearer token -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Authorization</h5>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal4">
+                        Authorize
+                    </button>
+                </div>
             </div>
         </div>
     </div>

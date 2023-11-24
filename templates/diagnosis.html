@@ -126,9 +126,9 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Home</a></li>
-                        <li class="nav-item" style="margin-right: -20px"><a href="/repository" class="nav-link">Repository</a></li>
+                        <li class="nav-item" style="margin-right: -20px"><a href="/repository" class="nav-link">Admin Center</a></li>
                         <li class="nav-item" style="margin-right: -20px"><a href="#" class="nav-link">Diagnosis</a></li>
-                        <li class="nav-item" style="margin-right: -20px"><a href="/faq" class="nav-link">FAQ</a></li>
+                     <!--   <li class="nav-item" style="margin-right: -20px"><a href="/faq" class="nav-link">FAQ</a></li>-->
                         <li class="nav-item" style="margin-right: -20px"><a href="/" class="nav-link">Logout</a></li>
                     </ul>
                 </div>
@@ -145,6 +145,7 @@
         <!-- Card 1: Upload Document -->
         <div class="card">
             <div class="card-body">
+                
                 <h5 class="card-title">Upload Medical Document</h5>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal1">
                     Upload Medical Document
@@ -152,10 +153,25 @@
             </div>
         </div>
     </div>
-
-<div class="row" style="width: 300px;">
+    <br>
+    <div class="row" style="width: 300px;">
     
         <!-- Card 2: Extract Document Information -->
+        <div class="card">
+            <div class="card-body">
+                <form action="/viewdocs" method="POST" enctype="multipart/form-data">
+                <h5 class="card-title">View Documents</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal2">
+                  View Documents
+                </button>
+            </form>
+            </div>
+        </div>
+    
+</div>
+<!--<div class="row" style="width: 300px;">
+    
+        <!-- Card 3: Extract Document Information 
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Extract Document Information</h5>
@@ -165,7 +181,7 @@
             </div>
         </div>
     
-</div>
+</div> -->
 
     <div class="chatbox">
         <div class="chatbox__button">
@@ -189,7 +205,7 @@
             <div class="chatbox__footer">
                 <input type="text" placeholder="Write a message...">
                 <button class="chatbox__send--footer send__button">Send</button>
-                <button hidden class="chatbox__send--footer query__button">Send</button>
+               <!-- <button class="chatbox__send--footer query__button">Send</button> -->
             </div>
         </div>
     </div>
@@ -205,8 +221,8 @@
                     </button>
                 </div>
                 <div class="data-container">
-                  <form id ="uploadForm" action="/diagnosis" method="POST">
-                    <h4><center>Upload File</center></h4>
+                 <form id ="uploadForm" action="/diagnosis" method="POST">
+                   <!-- <h4><center>Upload File</center></h4>
                     <div class="modal-body">
                       <input type="hidden" id="api_type" name="api_type" value="upload_file" />
                       <div class="mb-3">
@@ -220,16 +236,29 @@
                       <input
                         type="text" class="form-control" id="content_type" name="content_type" placeholder="Enter content type"
                       />
-                  </div>
+                  </div> 
                     </div>
-                    <h1></h1>
-                    <div class="modal-footer">
+                   <h1></h1>
+                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="submit" class="btn btn-primary btn-block" id="uploadform1">Submit</button>
-                  </div>
+                  </div> -->
                     
                     </div>
                   </form>
+                  <form
+                    action="/upload" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3" style="padding-left: 30px; padding-top: 20px;">
+                        <input type="hidden" id="api_type" name="api_type" value="upload_file" />
+                        <input type="file" name="files" , multiple="true"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-block" id="uploadform1">Submit</button>
+                    
+                   <!-- <input type="submit" />-->
+                </div>
+                </form>
                 </div>
                 
             </div>
@@ -261,8 +290,7 @@
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary btn-block" id="extractform1">Submit</button>
-                </div>
-                  
+                </div>              
                   </div>
                 </form>
               </div>
