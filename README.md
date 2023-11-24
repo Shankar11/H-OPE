@@ -1,6 +1,7 @@
 # H-OPE
 The OpenText India Hackathon: Hacknosis: Optimizing Patient Experiences
 
+This project contains our submission
 
 ## Getting Started
 You can create a virtual enivronment called HOPE
